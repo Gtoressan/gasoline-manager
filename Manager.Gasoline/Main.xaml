@@ -1,0 +1,694 @@
+﻿<Window 
+        x:Class="Manager.Gasoline.Main" AllowsTransparency="True" WindowStyle="None"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Manager.Gasoline"  Icon="Properties/Images/house.ico"
+        mc:Ignorable="d" Background="Transparent" ResizeMode="CanResizeWithGrip"
+        Height="470" Width="688" MinHeight="470" MinWidth="688"
+        xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+        SnapsToDevicePixels="True"
+        >
+
+    <Grid>
+
+        <Rectangle
+            Margin="0,0,0,0" Fill="WhiteSmoke"
+            RadiusX="6" RadiusY="6" Stroke="LightGray"
+            StrokeThickness="1.5" SnapsToDevicePixels="True"
+            />
+
+        <Rectangle
+            Name="Header" RadiusX="5" RadiusY="5"
+            VerticalAlignment="Top" Fill="AliceBlue"
+            Stroke="DarkGray" Margin="10,10,10,10" Height="30"
+            MouseLeftButtonUp="Header_MouseLeftButtonUp"
+            />
+
+        <Button
+            Name="bExit" FontSize="14" Margin="0,14.5,13,0"
+            Background="Transparent" FontFamily="Lucida Sans"
+            Width="23" Height="22" BorderThickness="0"
+            VerticalAlignment="Top" HorizontalAlignment="Right"
+            Content="X" Foreground="DarkGray" Click="bExit_Click"
+            ToolTip="Закрыть"
+            />
+
+        <Button
+            Name="bMinimized" FontSize="14" Margin="0,14.5,35,0"
+            Background="Transparent" FontFamily="Lucida Sans"
+            Width="23" Height="22" BorderThickness="0"
+            VerticalAlignment="Top" HorizontalAlignment="Right"
+            Content="_" Foreground="DarkGray" Click="bMinimized_Click"
+            ToolTip="Свернуть"
+            />
+
+        <Button
+            Name="bMaximized" FontSize="14" Margin="0,14.5,57,0"
+            Background="Transparent" FontFamily="Lucida Sans"
+            Width="23" Height="22" BorderThickness="0"
+            VerticalAlignment="Top" HorizontalAlignment="Right"
+            Content="( )" Foreground="DarkGray" Click="bMaximized_Click"
+            ToolTip="Развернуть"
+            />
+
+        <Label
+            Name="lHead" Margin="15,10,0,0"
+            Content="main" FontSize="14"
+            VerticalAlignment="Top" HorizontalAlignment="Left"
+            />
+
+        <TabControl
+            Margin="10,50,10,10"
+            >
+
+            <TabItem
+                x:Name="tiMainTab"
+                Header="Главная"
+                MouseLeftButtonUp="tiMainTab_MouseLeftButtonUp"
+                >
+
+                <Grid 
+                Background="WhiteSmoke">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78*"/>
+                        <ColumnDefinition Width="83*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Rectangle
+                        Fill="AliceBlue" Margin="2,4,5,4"
+                        Stroke="DarkGray" RadiusX="2" RadiusY="2"
+                        />
+
+                    <Rectangle
+                        Fill="AliceBlue" Margin="5,4,2,0"
+                        Stroke="DarkGray" RadiusX="2" RadiusY="2"
+                        Grid.Column="1" Height="94" VerticalAlignment="Top"
+                        />
+
+                    <Label 
+                        Content="Чтобы добавить новые данные в учет&#xA;заполните все нижние поля"  
+                        Height="50" Margin="7.857,3.857,10,0" VerticalAlignment="Top"
+                        FontSize="14" HorizontalContentAlignment="Center" BorderThickness="0"
+                        />
+
+                    <Label
+                        Name="lAboutAccCreating"
+                        Content="Учет был заведён 12.12.12 10:30"
+                        Margin="10,0,12.714,10.143" VerticalAlignment="Bottom"
+                        FontSize="14" HorizontalContentAlignment="Center" Height="32"
+                        />
+
+                    <ComboBox 
+                        Name="cbType" Background="Transparent"
+                        Margin="10,59,10.429,0" VerticalAlignment="Top" 
+                        IsReadOnly="True" SelectedIndex="0"
+                        HorizontalContentAlignment="Center"
+                        MaxWidth="500" BorderThickness="0" Height="24"
+                        >
+
+                        <ComboBoxItem
+                            Content="Выберите тип используемого бензина"
+                            IsEnabled="False" HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="Нормаль-80 (АИ-80)"
+                            HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="Регуляр-92 (АИ-92)"
+                            HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="Премиум-95 (АИ-95)"
+                            HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="Супер-95+ (АИ-95+)"
+                            HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="Экстра-98 (АИ-98)"
+                            HorizontalContentAlignment="Center"
+                            />
+                        <ComboBoxItem
+                            Content="ЭКТО-100 (АИ-100)"
+                            HorizontalContentAlignment="Center"
+                            />
+
+                    </ComboBox>
+
+                    <TextBox 
+                        Name="tbVolume" FontSize="13"
+                        Height="25" Margin="12,92,12.429,0" TextWrapping="Wrap" 
+                        Text="Укажите здесь кол-во заправленных литров" VerticalAlignment="Top"
+                        DataContext="Укажите здесь кол-во заправленных литров"
+                        HorizontalContentAlignment="Center" LostFocus="tbVolume_LostFocus"
+                        VerticalContentAlignment="Center" GotFocus="tbVolume_GotFocus" 
+                        Foreground="DarkGray" KeyUp="tbVolume_KeyUp" MaxLength="12"
+                        ToolTip="Кол-во заправленных литров" MaxWidth="500"
+                        />
+
+                    <TextBox 
+                        Name="tbCost" FontSize="13"
+                        Height="25" Margin="12,126,12.429,0" TextWrapping="Wrap" 
+                        Text="Укажите здесь стоимость заправки" MaxLength="16"
+                        DataContext="Укажите здесь стоимость заправки"
+                        VerticalAlignment="Top" Foreground="DarkGray" MaxWidth="500"
+                        HorizontalContentAlignment="Center" GotFocus="tbCost_GotFocus" 
+                        VerticalContentAlignment="Center" LostFocus="tbCost_LostFocus" 
+                        KeyUp="tbCost_KeyUp" ToolTip="Стоимость заправки"
+                        />
+
+                    <TextBox 
+                        Name="tbConsumption" FontSize="13"
+                        MouseDoubleClick="tbConsumption_MouseDoubleClick" 
+                        Text="Укажите здесь средний расход" MaxLength="16"
+                        DataContext="Укажите здесь средний расход"
+                        Height="25" ToolTip="Кликните 2 раза, что бы запомнить"
+                        VerticalAlignment="Top" Foreground="DarkGray" MaxWidth="500"
+                        HorizontalContentAlignment="Center" GotFocus="tbConsumption_GotFocus" 
+                        VerticalContentAlignment="Center" LostFocus="tbConsumption_LostFocus" 
+                        KeyUp="tbConsumption_KeyUp" Margin="12,159,12.429,0" TextWrapping="Wrap"
+                        />
+
+                    <TextBox
+                        Name="tbGS" FontSize="13"
+                        Height="25" Margin="12,194,12.429,0" TextWrapping="wrap"
+                        Text="Укажите здесь наименование АЗС" MaxLength="28"
+                        DataContext="Укажите здесь наименование АЗС"
+                        VerticalContentAlignment="Center" Foreground="DarkGray"
+                        HorizontalContentAlignment="Center" VerticalAlignment="Top"
+                        ToolTip="Пробелы в начале и в конце наименования&#xD;&#xA;автоматически удаляются"
+                        GotFocus="tbGS_GotFocus" LostFocus="tbGS_LostFocus"
+                        MaxWidth="500" KeyUp="tbGS_KeyUp"
+                        />
+
+                    <Button 
+                        Name="bAppendData" Background="Transparent"
+                        Margin="19,227,18.429,0" VerticalAlignment="Top" 
+                        Click="bAppendData_Click" BorderThickness="0" 
+                        Content="Занести данные в учет" Height="35" 
+                        HorizontalAlignment="Center" Width="290" 
+                        FontFamily="Lucida Sans" FontSize="14"
+                        Foreground="#FF50A0FA"
+                        />
+
+                    <Button
+                        x:Name="bRename" Background="Transparent"
+                        Content="Переименовать учет" Foreground="#FF50A0FA"
+                        Margin="23.571,47,19,0" Grid.Column="1" Height="35"
+                        VerticalAlignment="Top" HorizontalAlignment="Center"
+                        BorderThickness="0" Width="306" Click="bRename_Click"
+                        FontFamily="Lucida Sans" FontSize="14"  
+                        />
+
+                    <Button
+                        x:Name="bDataClear" Background="Transparent"
+                        Content="Очистить данные учета" Height="35"
+                        Margin="23.571,120,19,0"  VerticalAlignment="Top"
+                        HorizontalAlignment="Center" Width="306" Grid.Column="1"
+                        Click="bDataClear_Click" BorderThickness="0" 
+                        FontFamily="Lucida Sans" FontSize="14" Foreground="#FF50A0FA"
+                        />
+
+                    <Button
+                        x:Name="bDelete" Background="Transparent"
+                        Content="Удалить учет" Height="35" Foreground="#FF50A0FA"
+                        Margin="23.571,165,19,0" VerticalAlignment="Top"
+                        HorizontalAlignment="Center" Width="306" Grid.Column="1" 
+                        Click="bDelete_Click" BorderThickness="0" 
+                        FontFamily="Lucida Sans" FontSize="14"
+                        />
+
+                    <TextBox 
+                        Name="tbRename" Foreground="DarkGray" FontSize="13"
+                        Height="25" Margin="23.571,17,19,0" TextWrapping="Wrap"
+                        VerticalAlignment="Top" MaxLength="28" Grid.Column="1"
+                        ToolTip="Пробелы в начале и в конце имени&#xD;&#xA;автоматически удаляются"
+                        Text="Укажите имя здесь" VerticalContentAlignment="Center" 
+                        DataContext="Укажите имя здесь"
+                        GotFocus="tbRename_GotFocus" MaxWidth="500" KeyUp="tbRename_KeyUp"
+                        HorizontalContentAlignment="Center" LostFocus="tbRename_LostFocus" 
+                        />
+
+                    <TextBox 
+                        Name="UnfocusElement" Width="0" Height="0"
+                        VerticalAlignment="Top" HorizontalAlignment="Left"   
+                        />
+
+                </Grid>
+
+            </TabItem>
+
+
+            <TabItem 
+                x:Name="tiTable"
+                Header="Таблица"
+                MouseLeftButtonUp="tiTable_MouseLeftButtonUp"
+                >
+
+                <DataGrid 
+                    x:Name="dgTable" 
+                    CanUserResizeRows="False" CanUserResizeColumns="False" 
+                    AutoGenerateColumns="False" IsReadOnly="True"
+                    HorizontalGridLinesBrush="DimGray" Margin="-3,-3,-3,-3"
+                    RowBackground="WhiteSmoke" SelectionMode="Single"  
+                    AlternatingRowBackground="AliceBlue" 
+                    VerticalGridLinesBrush="DimGray" FontSize="13"
+                    >
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn 
+                            Header="Дата"
+                            Binding="{Binding Date}"
+                            />
+
+                        <DataGridTextColumn
+                            Header="Наименование АЗС"
+                            Binding="{Binding GS}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Тип топлива"
+                            Binding="{Binding Type}"
+                            Width="130" 
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Объем (в лит.)"
+                            Binding="{Binding Volume}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Затраты (в руб.)"
+                            Binding="{Binding Cost}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="С/р на 100 км"
+                            Binding="{Binding Consumption}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Стоимость литра"
+                            Binding="{Binding CostLitr}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Ожидаемая длина пути"
+                            Binding="{Binding Transit}"
+                            >
+
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+
+                                    <Setter
+                                        Property="TextBlock.TextAlignment"
+                                        Value="Center"
+                                        />
+
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                    <Button
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Top"
+                                        Width="20" Height="20"
+                                        Click="ToCorrect_Click" Background="Transparent"
+                                        Tag="{Binding SelectedIndex, ElementName=dgTable}"
+                                        ToolTip="Правка" BorderThickness="0"
+                                        >
+
+                                        <Image
+                                            Source="Properties/Images/customize.png"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            />
+
+                                    </Button>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                    </DataGrid.Columns>
+
+                    <DataGrid.Resources>
+
+                        <SolidColorBrush 
+                            x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                            Color="LightSkyBlue"
+                            />
+
+                    </DataGrid.Resources>
+
+                </DataGrid>
+
+            </TabItem>
+
+
+            <TabItem
+            Header="Диаграмма №1"
+            >
+
+                <Grid>
+
+                    <chart:ClusteredColumnChart
+                        ChartTitle="Диаграмма зависимости"
+                        ChartSubTitle="объема затрачиваемого топлива (в лит.) от времени"
+                        ChartLegendVisibility="Collapsed"
+                        >
+
+                        <chart:ClusteredColumnChart.Series>
+
+                            <chart:ChartSeries
+                            Name="chart1" SeriesTitle=" " 
+                            DisplayMember="DateAndType"
+                            ValueMember="Volume"
+                            />
+
+                        </chart:ClusteredColumnChart.Series>
+
+                    </chart:ClusteredColumnChart>
+
+                    <Button
+                        Name="bChart1Reversed" FontSize="11" Margin="0,0,10.286,4.143"
+                        Background="Transparent" FontFamily="Lucida Sans"
+                        Width="131" BorderThickness="0" HorizontalAlignment="Right"
+                        Content="Изменить представление" Foreground="DarkGray" 
+                        Click="bChart1Reversed_Click"
+                        ToolTip="Изменить по записям" 
+                        Height="17" VerticalAlignment="Bottom"
+                    />
+
+                </Grid>
+
+            </TabItem>
+
+
+            <TabItem
+            Header="Диаграмма №2"
+            >
+
+                <Grid>
+
+                    <chart:StackedBar100Chart
+                        ChartTitle="Диаграмма зависимости"
+                        ChartSubTitle="затрат (в руб.) каждой заправки от велечины всех затрат"
+                        ChartLegendVisibility="Collapsed"
+                        >
+
+                        <chart:StackedBar100Chart.Series>
+
+                            <chart:ChartSeries
+                            Name="chart2" SeriesTitle=" "
+                            DisplayMember="DateAndGS"
+                            ValueMember="Cost"
+                            />
+
+                        </chart:StackedBar100Chart.Series>
+
+                    </chart:StackedBar100Chart>
+
+                    <Button
+                        Name="bChart2Reversed" FontSize="11" Margin="0,0,10.286,4.143"
+                        Background="Transparent" FontFamily="Lucida Sans"
+                        Width="131" BorderThickness="0" HorizontalAlignment="Right"
+                        Content="Изменить представление" Foreground="DarkGray" 
+                        Click="bChart2Reversed_Click"
+                        ToolTip="Изменить по записям" 
+                        Height="17" VerticalAlignment="Bottom"
+                    />
+
+                </Grid>
+
+            </TabItem>
+
+
+            <TabItem
+                Header="Топ АЗС"
+                >
+
+                <chart:DoughnutChart
+                    ChartTitle="Самые популярные АЗС"
+                    ChartSubTitle="круговая диаграмма частоты встречаемости наименований АЗС"
+                    >
+
+                    <chart:DoughnutChart.Series>
+
+                        <chart:ChartSeries
+                            Name="chPieChart" SeriesTitle="Наименования АЗС"
+                            DisplayMember="GS" ValueMember="Percent"
+                            />
+
+                    </chart:DoughnutChart.Series>
+
+                </chart:DoughnutChart>
+
+            </TabItem>
+
+
+            <TabItem
+                x:Name="tiStatistics"
+                Header="Аналитика"
+                MouseLeftButtonUp="tiStatistics_MouseLeftButtonUp"
+                >
+
+                <Grid>
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10" Height="30"
+                        />
+
+                    <TextBox
+                        Name="tbAllVolumeInfo" Height="20"
+                        VerticalAlignment="Top" Margin="20,15,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10,50,10,10" Height="30"
+                        />
+
+                    <TextBox
+                        Name="tbAllCostInfo" Height="20"
+                        VerticalAlignment="Top" Margin="20,55,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10,90,10,10" Height="30"
+                        />
+
+                    <TextBox
+                        Name="tbAllTransitInfo" Height="20"
+                        VerticalAlignment="Top" Margin="20,95,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10,130,10,10" Height="30"
+                        />
+
+                    <TextBox
+                        Name="tbMiddleVolumeInfo" Height="20"
+                        VerticalAlignment="Top" Margin="20,135,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10,170,10,10" Height="30"
+                        />
+
+                    <TextBox
+                        Name="tbMiddleCostInfo" Height="20"
+                        VerticalAlignment="Top" Margin="20,175,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5"
+                        VerticalAlignment="Top" Fill="AliceBlue"
+                        Stroke="DarkGray" Margin="10,210,10,10" Height="110"
+                        />
+
+                    <TextBox
+                        Name="tbUploadedDaysInfo" Height="30"
+                        VerticalAlignment="Top" Margin="20,215,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <TextBox
+                        Name="tbInfo" Height="30"
+                        VerticalAlignment="Top" Margin="20,250,15.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <TextBox
+                        Name="tbInfo2" Height="30"
+                        VerticalAlignment="Top" Margin="20,285,121.286,0"
+                        FontSize="13" VerticalContentAlignment="Center"
+                        SelectionBrush="Aqua" IsReadOnly="True"
+                        BorderThickness="0" Background="Transparent"
+                        />
+
+                    <Rectangle
+                        RadiusX="5" RadiusY="5" HorizontalAlignment="Center"
+                        VerticalAlignment="Top" Fill="AliceBlue" MaxWidth="520"
+                        Stroke="DarkGray" Margin="10,330,10,10" Height="40"
+                        Width="550"
+                        />
+
+                    <ComboBox 
+                        Name="cbDate2" Background="Transparent"
+                        Margin="311,335,141.286,0" VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        IsReadOnly="True" SelectedIndex="0"
+                        Width="210" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" 
+                        MaxWidth="300" BorderThickness="0" Height="30"
+                        />
+
+                    <ComboBox 
+                        Name="cbDate" Background="Transparent"
+                        Margin="81,335,359.286,0" VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        IsReadOnly="True" SelectedIndex="0"
+                        Width="222" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" 
+                        MaxWidth="300" BorderThickness="0" Height="30"
+                        />
+
+                    <Button
+                        Name="bUpdate" FontSize="12" Margin="449,335,0,0"
+                        Background="Transparent" FontFamily="Lucida Sans" 
+                        Height="30" BorderThickness="0"
+                        VerticalAlignment="Top"
+                        Content="Обновить" Foreground="#FF50A0FA"
+                        ToolTip="Обновить раздел" Click="bUpdate_Click" 
+                        HorizontalAlignment="Center" Width="60"
+                        />
+
+                </Grid>
+
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+
+</Window>
+
